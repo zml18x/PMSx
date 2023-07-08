@@ -1,28 +1,42 @@
-﻿using PMS.Core.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PMS.Core.Entities;
 using PMS.Core.Repository;
+using PMS.Infrastructure.Data.Context;
 
 namespace PMS.Infrastructure.Repository
 {
     public class UserProfileRepository : IUserProfileRepository
     {
-        public Task<UserProfile> GetByIdAsync(Guid id)
+        public readonly PmsDbContext _context;
+
+
+
+        public UserProfileRepository(PmsDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task CreateAsync(UserProfile userProfile)
+
+
+        public async Task<UserProfile> GetByIdAsync(Guid id)
+            => await Task.FromResult(await _context.UserProfiles.FirstOrDefaultAsync(u => u.Id == id));
+
+        public async Task CreateAsync(UserProfile userProfile)
         {
-            throw new NotImplementedException();
+            await _context.UserProfiles.AddAsync(userProfile);
+            await _context.SaveChangesAsync();
         }
 
-        public Task UpdateAsync(UserProfile userProfile)
+        public async Task UpdateAsync(UserProfile userProfile)
         {
-            throw new NotImplementedException();
+            _context.UserProfiles.Update(userProfile);
+            await _context.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(UserProfile userProfile)
+        public async Task DeleteAsync(UserProfile userProfile)
         {
-            throw new NotImplementedException();
-        }    
+            _context.UserProfiles.Remove(userProfile);
+            await _context.SaveChangesAsync();
+        }
     }
 }
