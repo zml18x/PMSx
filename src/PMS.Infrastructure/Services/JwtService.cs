@@ -37,11 +37,11 @@ namespace PMS.Infrastructure.Services
                 new Claim(ClaimTypes.Role,user.Role)
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("JWT:KEY").Value!));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("JWT:Key").Value!));
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
-            var expire = DateTime.UtcNow.AddHours(int.Parse(_configuration.GetSection("JWT:Expire").Value!));
+            var expire = DateTime.UtcNow.AddHours(int.Parse(_configuration.GetSection("JWT:ExpiryMinutes").Value!));
 
             var token = new JwtSecurityToken(
                 claims: Claims,

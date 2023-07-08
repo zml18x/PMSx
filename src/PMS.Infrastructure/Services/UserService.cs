@@ -55,8 +55,8 @@ namespace PMS.Infrastructure.Services
             user = new User(newUserId, newUserProfileId, emailWithoutSpaces, passwordHash, passwordSalt);
             var userProfile = new UserProfile(newUserProfileId,firstName, lastName, phoneNumber);
 
-            await _userRepository.CreateAsync(user);
             await _userProfileRepository.CreateAsync(userProfile);
+            await _userRepository.CreateAsync(user);
         }
 
         public async Task<JwtDto> LoginAsync(string email, string password)

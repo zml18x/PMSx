@@ -7,7 +7,6 @@ namespace PMS.Core.Entities
 {
     public class User : Entity
     {
-        [ForeignKey("UserProfile")]
         public Guid UserProfileId { get; protected set; }
         public string Role { get; protected set; }
         public string Email { get; protected set; }
