@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using PMS.Core.Entities;
 
 namespace PMS.Infrastructure.Data.Context
 {
@@ -9,6 +10,10 @@ namespace PMS.Infrastructure.Data.Context
 
         public PmsDbContext(DbContextOptions<PmsDbContext> options) : base(options) { }
 
+
+
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
 
 
 
