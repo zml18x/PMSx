@@ -7,7 +7,7 @@ namespace PMS.Infrastructure.Repository
 {
     public class UserRepository : IUserRepository
     {
-        public readonly PmsDbContext _context;
+        private readonly PmsDbContext _context;
 
 
         public UserRepository(PmsDbContext context)

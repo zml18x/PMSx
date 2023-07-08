@@ -4,6 +4,7 @@ using PMS.Infrastructure.Dto;
 using PMS.Infrastructure.Exceptions;
 using PMS.Infrastructure.Extensions;
 using PMS.Infrastructure.Services.Interfaces;
+using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 
@@ -11,15 +12,17 @@ namespace PMS.Infrastructure.Services
 {
     public class UserService : IUserService
     {
-        public readonly IUserRepository _userRepository;
-        public readonly IUserProfileRepository _userProfileRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IUserProfileRepository _userProfileRepository;
+        private readonly IJwtService _jwtService;
 
 
 
-        public UserService(IUserRepository userRepository, IUserProfileRepository userProfileRepository)
+        public UserService(IUserRepository userRepository, IUserProfileRepository userProfileRepository, IJwtService jwtService)
         {
             _userRepository = userRepository;
             _userProfileRepository = userProfileRepository;
+            _jwtService = jwtService;
         }
 
 
@@ -34,18 +37,14 @@ namespace PMS.Infrastructure.Services
         public async Task AddAsync(string email, string password, string firstName, string lastName, string phoneNumber)
         {
             if(string.IsNullOrWhiteSpace(email))
-            {
                 throw new ArgumentNullException(nameof(email), "Email cannot be null");
-            }
 
             var emailWithoutSpaces = email.Trim(' ', '\n', '\t');
 
             var user = await _userRepository.GetByEmailAsync(emailWithoutSpaces);
 
             if(user != null)
-            {
                 throw new UserAlreadyExistException($"User with email '{email}' already exist");
-            }
 
             ValidatePassword(password);
             CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
@@ -60,9 +59,20 @@ namespace PMS.Infrastructure.Services
             await _userProfileRepository.CreateAsync(userProfile);
         }
 
-        public Task LoginAsync(string email, string password)
+        public async Task<JwtDto> LoginAsync(string email, string password)
         {
-            throw new NotImplementedException();
+            var user = await _userRepository.GetByEmailAsync(email);
+
+            if (user == null)
+                throw new InvalidCredentialException("Invalid credentials");
+
+            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+                throw new InvalidCredentialException("Invalid credentials");
+
+
+            var jwt = _jwtService.CreateToken(user);
+
+            return jwt;
         }
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)

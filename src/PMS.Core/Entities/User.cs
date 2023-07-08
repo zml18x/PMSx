@@ -1,4 +1,5 @@
 ﻿using PMS.Core.Exceptions;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 
@@ -6,6 +7,7 @@ namespace PMS.Core.Entities
 {
     public class User : Entity
     {
+        [ForeignKey("UserProfile")]
         public Guid UserProfileId { get; protected set; }
         public string Role { get; protected set; }
         public string Email { get; protected set; }
@@ -15,9 +17,9 @@ namespace PMS.Core.Entities
 
 
 
-        public User(Guid userId,Guid userProfileId,string email, byte[] passwordHash, byte[] passwordSalt, string role = "User")
+        public User(Guid id,Guid userProfileId,string email, byte[] passwordHash, byte[] passwordSalt, string role = "User")
         {
-            SetId(userId,userProfileId);
+            SetId(id,userProfileId);
             SetEmail(email);
             SetPassword(passwordHash,passwordSalt);
             SetRole(role);

@@ -6,6 +6,6 @@ namespace PMS.Infrastructure.Services.Interfaces
     {
         public Task<UserDto> GetAsync(Guid userId);
         public Task AddAsync(string email, string password, string firstName, string lastName, string phoneNumber);
-        public Task LoginAsync(string email, string password);
+        public Task<JwtDto> LoginAsync(string email, string password);
     }
 }

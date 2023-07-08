@@ -21,6 +21,7 @@ namespace PMS.Infrastructure.Data.Context
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            //modelBuilder.HasDefaultSchema("PMS");
         }
     }
 }

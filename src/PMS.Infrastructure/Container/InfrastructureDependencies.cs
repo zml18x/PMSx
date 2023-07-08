@@ -24,6 +24,7 @@ namespace PMS.Infrastructure.Container
 
             //Services
             services.AddScoped<IUserService,UserService>();
+            services.AddScoped<IJwtService,JwtService>();
         }
     }
 }

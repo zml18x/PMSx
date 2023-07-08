@@ -12,9 +12,9 @@ namespace PMS.Core.Entities
 
 
 
-        public UserProfile(Guid userProfileId,string firstName,string lastName,string phoneNumber)
+        public UserProfile(Guid id,string firstName,string lastName,string phoneNumber)
         {
-            SetId(userProfileId);
+            SetId(id);
             SetNames(firstName, lastName);
             SetPhoneNumber(phoneNumber);
         }
