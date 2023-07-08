@@ -23,18 +23,33 @@ namespace PMS.Infrastructure.Repository
 
         public async Task CreateAsync(UserProfile userProfile)
         {
+            if (userProfile == null)
+            {
+                throw new ArgumentNullException(nameof(userProfile), "UserProfile cannot be null");
+            }
+
             await _context.UserProfiles.AddAsync(userProfile);
             await _context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(UserProfile userProfile)
         {
+            if (userProfile == null)
+            {
+                throw new ArgumentNullException(nameof(userProfile), "UserProfile cannot be null");
+            }
+
             _context.UserProfiles.Update(userProfile);
             await _context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(UserProfile userProfile)
         {
+            if (userProfile == null)
+            {
+                throw new ArgumentNullException(nameof(userProfile), "UserProfile cannot be null");
+            }
+
             _context.UserProfiles.Remove(userProfile);
             await _context.SaveChangesAsync();
         }

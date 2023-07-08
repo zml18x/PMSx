@@ -17,17 +17,17 @@ namespace PMS.Infrastructure.Repository
 
 
 
-        public async Task<User> GetAsyncById(Guid userId)
+        public async Task<User> GetByIdAsync(Guid userId)
             => await Task.FromResult(await _context.Users.FirstOrDefaultAsync(u => u.Id == userId));
 
-        public async Task<User> GetAsyncByEmail(string email)
+        public async Task<User> GetByEmailAsync(string email)
             => await Task.FromResult(await _context.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower()));
 
         public async Task CreateAsync(User user)
         {
             if (user == null)
             {
-                throw new ArgumentNullException(nameof(user));
+                throw new ArgumentNullException(nameof(user),"User cannot be null");
             }
 
             await _context.Users.AddAsync(user);
@@ -38,7 +38,7 @@ namespace PMS.Infrastructure.Repository
         {
             if(user == null)
             {
-                throw new ArgumentNullException(nameof(user));
+                throw new ArgumentNullException(nameof(user), "User cannot be null");
             }
 
             _context.Users.Update(user);
@@ -49,7 +49,7 @@ namespace PMS.Infrastructure.Repository
         {
             if(user == null)
             {
-                throw new ArgumentNullException(nameof(user));
+                throw new ArgumentNullException(nameof(user), "User cannot be null");
             }
 
             _context.Users.Remove(user);
