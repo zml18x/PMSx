@@ -34,7 +34,7 @@ namespace PMS.Infrastructure.Services
             return new UserDto(user.Id, user.UserProfileId, user.Role, user.Email);
         }
 
-        public async Task AddAsync(string email, string password, string firstName, string lastName, string phoneNumber)
+        public async Task RegisterAsync(string email, string password, string firstName, string lastName, string phoneNumber)
         {
             if(string.IsNullOrWhiteSpace(email))
                 throw new ArgumentNullException(nameof(email), "Email cannot be null");
@@ -73,6 +73,16 @@ namespace PMS.Infrastructure.Services
             var jwt = _jwtService.CreateToken(user);
 
             return jwt;
+        }
+
+        public async Task UpdateProfileAsync(Guid id,string firstName, string lastName, string phoneNumber)
+        {
+            var user = await _userRepository.GetOrFailAsync(id);
+            var userProfile = await _userProfileRepository.GetOrFailAsync(user.UserProfileId);
+
+            userProfile.UpdateFields(firstName, lastName, phoneNumber);
+
+            await _userProfileRepository.UpdateAsync(userProfile);
         }
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)

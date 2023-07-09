@@ -26,7 +26,7 @@ namespace PMS.WebApi.Controllers
             if(request == null)
                 return BadRequest();
 
-            await _userService.AddAsync(request.Email, request.Password, request.FirstName, request.LastName, request.PhoneNumber);
+            await _userService.RegisterAsync(request.Email, request.Password, request.FirstName, request.LastName, request.PhoneNumber);
 
             return Created("/Account", null);
         }
@@ -55,6 +55,20 @@ namespace PMS.WebApi.Controllers
                 return NotFound();
 
             return new JsonResult(user);
+        }
+
+        [HttpPut("Profile/Update")]
+        [Authorize]
+        public async Task<IActionResult> UpdateProfileAsync([FromBody]UpdateProfile request)
+        {
+            if(request == null)
+                return BadRequest();
+
+            var userId = Guid.Parse(User.Identity!.Name!);
+
+            await _userService.UpdateProfileAsync(userId, request.FirstName, request.LastName, request.PhoneNumber);
+
+            return Ok();
         }
     }
 }

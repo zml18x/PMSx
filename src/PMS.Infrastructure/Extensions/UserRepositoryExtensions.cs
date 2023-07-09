@@ -22,5 +22,22 @@ namespace PMS.Infrastructure.Extensions
 
             return user;
         }
+
+        public static async Task<UserProfile> GetOrFailAsync(this IUserProfileRepository repository, Guid userProfileId)
+        {
+            if (userProfileId == Guid.Empty)
+            {
+                throw new ArgumentNullException("The userProfileId parameter cannot be empty");
+            }
+
+            var userProfile = await repository.GetByIdAsync(userProfileId);
+
+            if (userProfile == null)
+            {
+                throw new UserNotFoundException($"UserProfile with ID '{userProfileId}' does not exist");
+            }
+
+            return userProfile;
+        }
     }
 }

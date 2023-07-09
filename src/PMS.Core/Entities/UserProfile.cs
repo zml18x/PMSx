@@ -67,5 +67,17 @@ namespace PMS.Core.Entities
 
             PhoneNumber = phoneNumber;
         }
+
+        public void UpdateFields(string? firstName, string? lastName, string? phoneNumber)
+        {
+            var newFirstName = firstName != null ? firstName : FirstName;
+            var newLastName = lastName != null ? lastName : LastName;
+            var newPhoneNumber = phoneNumber != null ? phoneNumber : PhoneNumber;
+
+            SetNames(newFirstName, newLastName);
+            SetPhoneNumber(newPhoneNumber);
+
+            LastUpdateAt = DateTime.UtcNow;
+        }
     }
 }
