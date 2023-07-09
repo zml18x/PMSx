@@ -39,6 +39,9 @@ builder.Services.AddSwaggerGen(option =>
 
 var app = builder.Build();
 
+// Auto migrations
+PMS.Infrastructure.Data.DatabaseInitializer.Initialize(app.Services);
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
