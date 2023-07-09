@@ -34,6 +34,14 @@ namespace PMS.Infrastructure.Services
             return new UserDto(user.Id, user.UserProfileId, user.Role, user.Email);
         }
 
+        public async Task<UserProfileDto> GetDetailsAsync(Guid userId)
+        {
+            var user = await _userRepository.GetOrFailAsync(userId);
+            var userProfile = await _userProfileRepository.GetOrFailAsync(user.UserProfileId);
+
+            return new UserProfileDto(user.Id, userProfile.Id, user.Role, user.Email, userProfile.FirstName, userProfile.LastName, userProfile.PhoneNumber);
+        }
+
         public async Task RegisterAsync(string email, string password, string firstName, string lastName, string phoneNumber)
         {
             if(string.IsNullOrWhiteSpace(email))

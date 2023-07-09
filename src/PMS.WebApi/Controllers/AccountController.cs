@@ -57,6 +57,18 @@ namespace PMS.WebApi.Controllers
             return new JsonResult(user);
         }
 
+        [HttpGet("Profile")]
+        [Authorize]
+        public async Task<IActionResult> GetProfileAsync()
+        {
+            var user = await _userService.GetDetailsAsync(Guid.Parse(User.Identity!.Name!));
+
+            if (user == null)
+                return NotFound();
+
+            return new JsonResult(user);
+        }
+
         [HttpPut("Profile/Update")]
         [Authorize]
         public async Task<IActionResult> UpdateProfileAsync([FromBody]UpdateProfile request)
