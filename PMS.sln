@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMS.Core", "src\PMS.Core\PMS.Core.csproj", "{F4329565-AFC4-4D34-9BC6-F97604C9BFAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PMS.Core", "src\PMS.Core\PMS.Core.csproj", "{F4329565-AFC4-4D34-9BC6-F97604C9BFAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMS.Infrastructure", "src\PMS.Infrastructure\PMS.Infrastructure.csproj", "{FAEDB1CE-62DB-40DF-B4FD-F43970B9AC5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PMS.Infrastructure", "src\PMS.Infrastructure\PMS.Infrastructure.csproj", "{FAEDB1CE-62DB-40DF-B4FD-F43970B9AC5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMS.WebApi", "src\PMS.WebApi\PMS.WebApi.csproj", "{DF72D542-AD32-4CC6-9224-C4480387A862}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PMS.WebApi", "src\PMS.WebApi\PMS.WebApi.csproj", "{DF72D542-AD32-4CC6-9224-C4480387A862}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMS.Core.Tests", "tests\UnitTests\PMS.Core.Tests\PMS.Core.Tests.csproj", "{81E3AA4A-096E-4DF4-A234-3947913484EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{DF72D542-AD32-4CC6-9224-C4480387A862}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF72D542-AD32-4CC6-9224-C4480387A862}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF72D542-AD32-4CC6-9224-C4480387A862}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81E3AA4A-096E-4DF4-A234-3947913484EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81E3AA4A-096E-4DF4-A234-3947913484EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81E3AA4A-096E-4DF4-A234-3947913484EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81E3AA4A-096E-4DF4-A234-3947913484EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
