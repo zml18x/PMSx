@@ -32,6 +32,7 @@ namespace PMS.Infrastructure.Services
 
             List<Claim> Claims = new List<Claim>()
             {
+                new Claim(ClaimTypes.Name,user.Id.ToString()),
                 new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
                 new Claim(ClaimTypes.Email,user.Email),
                 new Claim(ClaimTypes.Role,user.Role)
@@ -43,10 +44,13 @@ namespace PMS.Infrastructure.Services
 
             var expire = DateTime.UtcNow.AddHours(int.Parse(_configuration.GetSection("JWT:ExpiryMinutes").Value!));
 
+            var issuerr = _configuration.GetSection("JWT:Issuer").Value;
+
             var token = new JwtSecurityToken(
                 claims: Claims,
                 signingCredentials: creds,
-                expires: expire );
+                expires: expire,
+                issuer: issuerr);
 
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
