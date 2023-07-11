@@ -39,47 +39,38 @@ namespace PMS.Core.Tests.EntitiesTests
             var role = "User";
 
 
-            // CASE IF passwordHash IS NULL
             byte[] passwordHash = null;
             byte[] passwordSalt = new byte[128];
             Assert.Throws<ArgumentNullException>(() => new User(id, userProfileId, email, passwordHash, passwordSalt, role));
 
-            // CASE IF passwordSalt IS NULL
             passwordHash = new byte[64];
             passwordSalt = null;
             Assert.Throws<ArgumentNullException>(() => new User(id, userProfileId, email, passwordHash, passwordSalt, role));
 
-            // CASE IF passwordSalt & passwordHash ARE NULL
             passwordHash = null;
             passwordSalt = null;
             Assert.Throws<ArgumentNullException>(() => new User(id, userProfileId, email, passwordHash, passwordSalt, role));
 
-            // CASE IF passwordHash IS TOO SHORT
             passwordHash = new byte[63];
             passwordSalt = new byte[128];
             Assert.Throws<ArgumentException>(() => new User(id, userProfileId, email, passwordHash, passwordSalt, role));
 
-            // CASE IF passwordSalt IS TOO SHORT
             passwordHash = new byte[64];
             passwordSalt = new byte[127];
             Assert.Throws<ArgumentException>(() => new User(id, userProfileId, email, passwordHash, passwordSalt, role));
 
-            // CASE IF passwordSalt & passwordHash ARE TOO SHORT
             passwordHash = new byte[63];
             passwordSalt = new byte[127];
             Assert.Throws<ArgumentException>(() => new User(id, userProfileId, email, passwordHash, passwordSalt, role));
 
-            // CASE IF passwordHash IS TOO LONG
             passwordHash = new byte[65];
             passwordSalt = new byte[128];
             Assert.Throws<ArgumentException>(() => new User(id, userProfileId, email, passwordHash, passwordSalt, role));
 
-            // CASE IF passwordSalt IS TOO LONG
             passwordHash = new byte[64];
             passwordSalt = new byte[129];
             Assert.Throws<ArgumentException>(() => new User(id, userProfileId, email, passwordHash, passwordSalt, role));
 
-            // CASE IF passwordSalt & passwordHash ARE TOO LONG
             passwordHash = new byte[65];
             passwordSalt = new byte[129];
             Assert.Throws<ArgumentException>(() => new User(id, userProfileId, email, passwordHash, passwordSalt, role));
@@ -96,11 +87,9 @@ namespace PMS.Core.Tests.EntitiesTests
             var role = "User";
 
 
-            // CASE IF 'Id' IS GUID EMPTY
             id = Guid.Empty;
             Assert.Throws<EmptyIdException>(() => new User(id, userProfileId, email, passwordHash, passwordSalt, role));
 
-            // CASE IF 'UserProfileId' IS GUID EMPTY
             id = Guid.NewGuid();
             userProfileId = Guid.Empty;
             Assert.Throws<EmptyIdException>(() => new User(id, userProfileId, email, passwordHash, passwordSalt, role));
@@ -118,19 +107,15 @@ namespace PMS.Core.Tests.EntitiesTests
 
 
 
-            // CASE IF 'Role' IS NULL
             role = null;
             Assert.Throws<ArgumentNullException>(() => new User(id, userProfileId, email, passwordHash, passwordSalt, role));
 
-            // CASE IF 'Role' IS WHITE SPACE
             role = " ";
             Assert.Throws<ArgumentNullException>(() => new User(id, userProfileId, email, passwordHash, passwordSalt, role));
 
-            // CASE IF 'Role' IS STRING EMPTY
             role = string.Empty;
             Assert.Throws<ArgumentNullException>(() => new User(id, userProfileId, email, passwordHash, passwordSalt, role));
 
-            // CASE IF 'Role' IS NOT a User OR Admin
             role = "Role";
             Assert.Throws<ArgumentException>(() => new User(id, userProfileId, email, passwordHash, passwordSalt, role));
         }
@@ -147,20 +132,16 @@ namespace PMS.Core.Tests.EntitiesTests
 
 
 
-            // CASE IF 'Email' IS NULL
             email = null;
             Assert.Throws<ArgumentNullException>(() => new User(id, userProfileId, email, passwordHash, passwordSalt, role));
 
-            // CASE IF 'Email' IS WHITE SPACE
             email = " ";
             Assert.Throws<ArgumentNullException>(() => new User(id, userProfileId, email, passwordHash, passwordSalt, role));
 
-            // CASE IF 'Email' IS STRING EMPTY
             email = string.Empty;
             Assert.Throws<ArgumentNullException>(() => new User(id, userProfileId, email, passwordHash, passwordSalt, role));
 
 
-            // CASE WHEN 'Email' IS IN THE WRONG FORMAT
             email = "test.example.com";
             Assert.Throws<ArgumentException>(() => new User(id, userProfileId, email, passwordHash, passwordSalt, role));
 
@@ -177,7 +158,6 @@ namespace PMS.Core.Tests.EntitiesTests
             Assert.Throws<ArgumentException>(() => new User(id, userProfileId, email, passwordHash, passwordSalt, role));
 
 
-            // CASE IF 'Email' CONTAINS SPACES
 
             var invalidMailsWithSpaces = new List<string>()
             {
@@ -188,7 +168,6 @@ namespace PMS.Core.Tests.EntitiesTests
                 Assert.Throws<ArgumentException>(() => new User(id, userProfileId, invalidMail, passwordHash, passwordSalt, role));
 
 
-            // CASE IF 'Email' CONTAINS FORBIDDEN CHARACTERS
 
             var invalidMailsWithForbiddenCharacters = new List<string>()
             {
