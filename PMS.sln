@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PMS.Infrastructure", "src\P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PMS.WebApi", "src\PMS.WebApi\PMS.WebApi.csproj", "{DF72D542-AD32-4CC6-9224-C4480387A862}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMS.Core.Tests", "tests\UnitTests\PMS.Core.Tests\PMS.Core.Tests.csproj", "{81E3AA4A-096E-4DF4-A234-3947913484EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PMS.Core.Tests", "tests\UnitTests\PMS.Core.Tests\PMS.Core.Tests.csproj", "{81E3AA4A-096E-4DF4-A234-3947913484EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMS.Infrastructure.Tests", "tests\UnitTests\PMS.Infrastructure.Tests\PMS.Infrastructure.Tests.csproj", "{A57A14B1-4F44-4ABF-9A63-3077484F1D5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{81E3AA4A-096E-4DF4-A234-3947913484EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81E3AA4A-096E-4DF4-A234-3947913484EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81E3AA4A-096E-4DF4-A234-3947913484EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A57A14B1-4F44-4ABF-9A63-3077484F1D5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A57A14B1-4F44-4ABF-9A63-3077484F1D5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A57A14B1-4F44-4ABF-9A63-3077484F1D5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A57A14B1-4F44-4ABF-9A63-3077484F1D5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
