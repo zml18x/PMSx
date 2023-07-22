@@ -88,7 +88,7 @@ namespace PMS.Infrastructure.Services
             var user = await _userRepository.GetOrFailAsync(id);
             var userProfile = await _userProfileRepository.GetOrFailAsync(user.UserProfileId);
 
-            userProfile.UpdateFields(firstName, lastName, phoneNumber);
+            userProfile.UpdateUserProfile(firstName, lastName, phoneNumber);
 
             await _userProfileRepository.UpdateAsync(userProfile);
         }
