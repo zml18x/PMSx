@@ -78,7 +78,7 @@ namespace PMS.WebApi.Controllers
 
             var userId = Guid.Parse(User.Identity!.Name!);
 
-            await _userService.UpdateProfileAsync(userId, request.FirstName, request.LastName, request.PhoneNumber);
+            await _userService.UpdateProfileAsync(userId, request.FirstName!, request.LastName!, request.PhoneNumber!);
 
             return Ok();
         }
