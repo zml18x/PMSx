@@ -140,7 +140,7 @@ namespace PMS.Infrastructure.UnitTests.Services
 
             var id = Guid.NewGuid();
 
-            await Assert.ThrowsAsync<UserNotFoundException>(() => _userService.GetAsync(id));
+            await Assert.ThrowsAsync<NotFoundException>(() => _userService.GetAsync(id));
         }
 
         [Fact]
@@ -182,7 +182,7 @@ namespace PMS.Infrastructure.UnitTests.Services
 
             var id = Guid.NewGuid();
 
-            await Assert.ThrowsAsync<UserNotFoundException>(() => _userService.GetDetailsAsync(id));
+            await Assert.ThrowsAsync<NotFoundException>(() => _userService.GetDetailsAsync(id));
         }
 
         [Fact]
@@ -225,7 +225,7 @@ namespace PMS.Infrastructure.UnitTests.Services
 
             _userRepositoryMock.Setup(x => x.GetByIdAsync(id))!.ReturnsAsync((User)null);
 
-            await Assert.ThrowsAsync<UserNotFoundException>(() => _userService.UpdateProfileAsync(id, firstName, lastName, phoneNumber));
+            await Assert.ThrowsAsync<NotFoundException>(() => _userService.UpdateProfileAsync(id, firstName, lastName, phoneNumber));
         }
 
         [Fact]
@@ -245,7 +245,7 @@ namespace PMS.Infrastructure.UnitTests.Services
             _userRepositoryMock.Setup(x => x.GetByIdAsync(userId)).ReturnsAsync(user);
             _userProfileRepositoryMock.Setup(x => x.GetByIdAsync(userProfileId))!.ReturnsAsync((UserProfile)null);
 
-            await Assert.ThrowsAsync<UserNotFoundException>(() => _userService.UpdateProfileAsync(user.Id, firstName, lastName, phoneNumber));
+            await Assert.ThrowsAsync<NotFoundException>(() => _userService.UpdateProfileAsync(user.Id, firstName, lastName, phoneNumber));
         }
     }
 }

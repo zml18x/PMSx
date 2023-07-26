@@ -46,7 +46,7 @@ namespace PMS.Api.Middleware
 
                 case Exception when exType == typeof(InvalidOperationException): code = HttpStatusCode.Conflict; break;
 
-                case Exception when exType == typeof(UserNotFoundException): code = HttpStatusCode.NotFound; break;
+                case Exception when exType == typeof(NotFoundException): code = HttpStatusCode.NotFound; break;
 
                 case Exception when exType == typeof(UserAlreadyExistException): code = HttpStatusCode.Conflict; break;
 

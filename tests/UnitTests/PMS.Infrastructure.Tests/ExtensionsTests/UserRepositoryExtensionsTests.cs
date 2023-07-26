@@ -43,7 +43,7 @@ namespace PMS.Infrastructure.Extensions.Tests
             var userId = Guid.NewGuid();
 
 
-            await Assert.ThrowsAsync<UserNotFoundException>(() => userRepositoryMock.Object.GetOrFailAsync(userId));
+            await Assert.ThrowsAsync<NotFoundException>(() => userRepositoryMock.Object.GetOrFailAsync(userId));
         }
 
         [Fact]
@@ -76,7 +76,7 @@ namespace PMS.Infrastructure.Extensions.Tests
                                     .ReturnsAsync((UserProfile)null!);
 
 
-            await Assert.ThrowsAsync<UserNotFoundException>(() => userProfileRepositoryMock.Object.GetOrFailAsync(userProfileId));
+            await Assert.ThrowsAsync<NotFoundException>(() => userProfileRepositoryMock.Object.GetOrFailAsync(userProfileId));
         }
     }
 }

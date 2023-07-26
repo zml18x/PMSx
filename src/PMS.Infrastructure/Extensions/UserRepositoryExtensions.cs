@@ -17,7 +17,7 @@ namespace PMS.Infrastructure.Extensions
 
             if(user == null)
             {
-                throw new UserNotFoundException($"User with ID '{userId}' does not exist");
+                throw new NotFoundException($"User with ID '{userId}' does not exist");
             }
 
             return user;
@@ -34,7 +34,7 @@ namespace PMS.Infrastructure.Extensions
 
             if (userProfile == null)
             {
-                throw new UserNotFoundException($"UserProfile with ID '{userProfileId}' does not exist");
+                throw new NotFoundException($"UserProfile with ID '{userProfileId}' does not exist");
             }
 
             return userProfile;
