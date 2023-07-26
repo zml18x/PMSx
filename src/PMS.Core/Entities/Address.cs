@@ -42,43 +42,43 @@ namespace PMS.Core.Entities
             var updated = false;
 
 
-            if (!string.IsNullOrEmpty(country))
+            if (!string.IsNullOrWhiteSpace(country))
             {
                 SetCountry(country);
                 updated = true;
             }
 
-            if (!string.IsNullOrEmpty(countryCode))
+            if (!string.IsNullOrWhiteSpace(countryCode))
             {
                 SetCountryCode(countryCode);
                 updated = true;
             }
 
-            if (!string.IsNullOrEmpty(city))
+            if (!string.IsNullOrWhiteSpace(city))
             {
                 SetCity(city);
                 updated = true;
             }
 
-            if (!string.IsNullOrEmpty(postalCode))
+            if (!string.IsNullOrWhiteSpace(postalCode))
             {
                 SetPostalCode(postalCode);
                 updated = true;
             }
 
-            if (!string.IsNullOrEmpty(street))
+            if (!string.IsNullOrWhiteSpace(street))
             {
                 SetStreet(street);
                 updated = true;
             }
 
-            if (!string.IsNullOrEmpty(buildingNumber))
+            if (!string.IsNullOrWhiteSpace(buildingNumber))
             {
                 SetBuildingNumber(buildingNumber);
                 updated = true;
             }
 
-            if (!string.IsNullOrEmpty(region))
+            if (!string.IsNullOrWhiteSpace(region))
             {
                 SetRegion(region);
                 updated = true;
