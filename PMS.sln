@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PMS.WebApi", "src\PMS.WebAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PMS.Core.Tests", "tests\UnitTests\PMS.Core.Tests\PMS.Core.Tests.csproj", "{81E3AA4A-096E-4DF4-A234-3947913484EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMS.Infrastructure.Tests", "tests\UnitTests\PMS.Infrastructure.Tests\PMS.Infrastructure.Tests.csproj", "{A57A14B1-4F44-4ABF-9A63-3077484F1D5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PMS.Infrastructure.Tests", "tests\UnitTests\PMS.Infrastructure.Tests\PMS.Infrastructure.Tests.csproj", "{A57A14B1-4F44-4ABF-9A63-3077484F1D5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMS.WebApi.Tests", "tests\UnitTests\PMS.WebApi.Tests\PMS.WebApi.Tests.csproj", "{C5F513AA-AA32-478B-B195-94671C355DF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{A57A14B1-4F44-4ABF-9A63-3077484F1D5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A57A14B1-4F44-4ABF-9A63-3077484F1D5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A57A14B1-4F44-4ABF-9A63-3077484F1D5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5F513AA-AA32-478B-B195-94671C355DF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5F513AA-AA32-478B-B195-94671C355DF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5F513AA-AA32-478B-B195-94671C355DF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5F513AA-AA32-478B-B195-94671C355DF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
