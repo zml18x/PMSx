@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PMS.Infrastructure.Data.Context;
 
@@ -11,9 +12,11 @@ using PMS.Infrastructure.Data.Context;
 namespace PMS.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(PmsDbContext))]
-    partial class PmsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230728211324_AddressTableImprovements")]
+    partial class AddressTableImprovements
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
