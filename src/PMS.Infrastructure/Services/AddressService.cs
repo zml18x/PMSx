@@ -3,12 +3,14 @@ using PMS.Core.Repository;
 using PMS.Infrastructure.Dto;
 using PMS.Infrastructure.Extensions;
 using PMS.Infrastructure.Services.Interfaces;
+using System.Globalization;
 
 namespace PMS.Infrastructure.Services
 {
     public class AddressService : IAddressService
     {
         private readonly IAddressRepository _addressRepository;
+
 
 
         public AddressService(IAddressRepository addressRepository)
@@ -33,24 +35,41 @@ namespace PMS.Infrastructure.Services
                 address.PostalCode, address.Street, address.BuildingNumber, address.Region);
         }
 
-        public async Task CreateAsync(string country, string countryCode, string city,
-            string postalCode, string street, string buildingNumber, string? region = null)
+        public async Task CreateAsync(string countryCode, string region, string city,
+            string postalCode, string street, string buildingNumber)
         {
+            var country = GetCountryNameByCode(countryCode);
+
             var addressId = Guid.NewGuid();
 
-            var address = new Address(addressId, country, countryCode, city, postalCode, street, buildingNumber, region);
+            var address = new Address(addressId, country, region, countryCode, city, postalCode, street, buildingNumber);
 
             await _addressRepository.CreateAsync(address);
         }
 
-        public async Task UpdateAsync(Guid id, string? country, string? countryCode, string? city,
+        public async Task UpdateAsync(Guid id, string? countryCode, string? city,
             string? postalCode, string? street, string? buildingNumber, string? region)
         {
             var address = await _addressRepository.GetOrFailAsync(id);
 
+            var country = countryCode != null ? GetCountryNameByCode(countryCode) : null;
+
             address.UpdateAddress(country, countryCode, city, postalCode, street, buildingNumber, region);
 
             await _addressRepository.UpdateAsync(address);
+        }
+
+        private string GetCountryNameByCode(string countryCode)
+        {
+            try
+            {
+                CultureInfo culture = new CultureInfo(countryCode);
+                return culture.EnglishName;
+            }
+            catch (Exception)
+            {
+                throw new CultureNotFoundException("Unknown country code");
+            }
         }
     }
 }
