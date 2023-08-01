@@ -5,6 +5,7 @@ namespace PMS.Core.Entities
     public class Property : Entity
     {
         private ISet<Room> _rooms = new HashSet<Room>();
+        public Guid UserId { get; protected set; }
         public Guid AddressId { get; protected set; }
         public string PropertyType { get; protected set; }
         public int Stars { get; protected set; }
@@ -23,9 +24,9 @@ namespace PMS.Core.Entities
 
 
 
-        public Property(Guid id, Guid addressId, string propertyType, int stars, string name, string description, int maxRoomsCount)
+        public Property(Guid propertyId, Guid userId, Guid addressId, string propertyType, int stars, string name, string description, int maxRoomsCount)
         {
-            SetId(id, addressId);
+            SetId(propertyId, addressId);
             SetPropertyType(propertyType);
             SetStars(stars);
             SetName(name);
@@ -35,15 +36,19 @@ namespace PMS.Core.Entities
 
 
 
-        private void SetId(Guid propertyId, Guid addressId)
+        private void SetId(Guid propertyId, Guid userId, Guid addressId)
         {
             if (propertyId == Guid.Empty)
                 throw new ArgumentNullException(nameof(propertyId), "PropertyId cannot be empty");
+
+            if(userId == Guid.Empty)
+                throw new ArgumentNullException(nameof(propertyId), "UserId cannot be empty");
 
             if (addressId == Guid.Empty)
                 throw new ArgumentNullException(nameof(addressId), "AddressId cannot be empty");
 
             Id = propertyId;
+            UserId = userId;
             AddressId = addressId;
         }
 
