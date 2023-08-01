@@ -35,12 +35,10 @@ namespace PMS.Infrastructure.Services
                 address.PostalCode, address.Street, address.BuildingNumber, address.Region);
         }
 
-        public async Task CreateAsync(string countryCode, string region, string city,
+        public async Task CreateAsync(Guid addressId,string countryCode, string region, string city,
             string postalCode, string street, string buildingNumber)
         {
             var country = GetCountryNameByCode(countryCode);
-
-            var addressId = Guid.NewGuid();
 
             var address = new Address(addressId, country, region, countryCode, city, postalCode, street, buildingNumber);
 

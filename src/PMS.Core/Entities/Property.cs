@@ -1,10 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PMS.Core.Entities
 {
     public class Property : Entity
     {
+        [NotMapped]
         private ISet<Room> _rooms = new HashSet<Room>();
+        [Key]
+        public Guid Id { get; protected set; }
         public Guid UserId { get; protected set; }
         public Guid AddressId { get; protected set; }
         public string PropertyType { get; protected set; }
@@ -23,10 +27,9 @@ namespace PMS.Core.Entities
         public IEnumerable<Room> OccupiedRooms =>_rooms.Except(AvailableRooms);
 
 
-
-        public Property(Guid propertyId, Guid userId, Guid addressId, string propertyType, int stars, string name, string description, int maxRoomsCount)
+        public Property(Guid id, Guid userId, Guid addressId, string propertyType, int stars, string name, string description, int maxRoomsCount)
         {
-            SetId(propertyId, userId, addressId);
+            SetId(id, userId, addressId);
             SetPropertyType(propertyType);
             SetStars(stars);
             SetName(name);

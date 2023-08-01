@@ -17,9 +17,9 @@ namespace PMS.Core.Entities
 
 
 
-        public Room(Guid roomId, Guid propertyId, string roomNumber, string name, string type, int singleBedCount, int doubleBedCount)
+        public Room(Guid id, Guid propertyId, string roomNumber, string name, string type, int singleBedCount, int doubleBedCount)
         {
-            SetId(roomId, propertyId);
+            SetId(id, propertyId);
             SetNumber(roomNumber);
             SetName(name);
             SetType(type);
