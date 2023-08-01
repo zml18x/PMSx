@@ -15,6 +15,8 @@ namespace PMS.Infrastructure.Data.Context
         public DbSet<User> Users { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<Property> Properties { get; set; }
+        public DbSet<Room> Rooms { get; set; }
 
 
 
