@@ -21,6 +21,9 @@ namespace PMS.Infrastructure.Repository
         public async Task<Property> GetByIdAsync(Guid propertyId)
             => await Task.FromResult(await _context.Properties.FirstOrDefaultAsync(p => p.Id == propertyId));
 
+        public async Task<Property> GetByNameAsync(Guid userId, string name)
+            => await Task.FromResult(await _context.Properties.FirstOrDefaultAsync(p => p.UserId == userId && p.Name == name));
+
         public async Task<IEnumerable<Property>> GetAllAsync(Guid userId)
             => await Task.FromResult(_context.Properties.Where(p => p.UserId == userId).AsEnumerable());
 
