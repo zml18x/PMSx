@@ -26,7 +26,7 @@ namespace PMS.Core.Entities
 
         public Property(Guid propertyId, Guid userId, Guid addressId, string propertyType, int stars, string name, string description, int maxRoomsCount)
         {
-            SetId(propertyId, addressId);
+            SetId(propertyId, userId, addressId);
             SetPropertyType(propertyType);
             SetStars(stars);
             SetName(name);
