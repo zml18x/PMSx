@@ -27,12 +27,11 @@ namespace PMS.Infrastructure.Services
 
             foreach (var property in properties)
             {
-                propertiesDto.Append(new PropertyDto(property.Id, property.PropertyType, property.Stars, property.Name, property.Description,
+                propertiesDto.Add(new PropertyDto(property.Id, property.PropertyType, property.Stars, property.Name, property.Description,
                     property.MaxRoomsCount, property.RoomsCount));
             }
 
-            return propertiesDto.AsEnumerable();
-
+            return propertiesDto;
         }
 
         public async Task<PropertyDetailsDto> GetByIdAsync(Guid propertyId)

@@ -1,5 +1,4 @@
 ﻿using PMS.Core.Exceptions;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PMS.Core.Entities
 {

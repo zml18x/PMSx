@@ -20,6 +20,8 @@ namespace PMS.WebApi.Controllers
             _addressService = addressService;
         }
 
+
+
         [Authorize]
         [HttpPost("Create")]
         public async Task<IActionResult> AddNewProperty([FromBody] CreateProperty request)
@@ -42,12 +44,47 @@ namespace PMS.WebApi.Controllers
                 await _propertyService.CreateAsync(userId, addressId, request.PropertyType,
                     request.Stars, request.PropertyName, request.Description, request.MaxRoomsCount);
 
-                return Created("Propert/test", null);
+                return Created($"/Property/{request.PropertyName}", null);
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                return BadRequest(ex.Message);
             }
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> GetAllProperties()
+        {
+            var properties = await _propertyService.GetPropertiesAsync(Guid.Parse(User.Identity!.Name!));
+
+            return new JsonResult(properties);
+        }
+
+        [Authorize]
+        [HttpGet("{propertyId}")]
+        public async Task<IActionResult> GetProperty(Guid propertyId)
+        {
+            var property = await _propertyService.GetByIdAsync(propertyId);
+
+            if (property == null)
+                return NotFound();
+
+            return new JsonResult(property);
+        }
+
+        [Authorize]
+        [HttpGet("{propertyId}/Address")]
+        public async Task<IActionResult> GetPropertyAddress(Guid propertyId)
+        {
+            var property = await _propertyService.GetByIdAsync(propertyId);
+
+            if (property == null)
+                return NotFound();
+
+            var address = await _addressService.GetByIdAsync(property.AddressId);
+
+            return new JsonResult(address);
         }
     }
 }
