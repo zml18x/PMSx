@@ -24,7 +24,7 @@ namespace PMS.WebApi.Controllers
 
         [Authorize]
         [HttpPost("Create")]
-        public async Task<IActionResult> AddNewProperty([FromBody] CreateProperty request)
+        public async Task<IActionResult> AddNewPropertyAsync([FromBody] CreateProperty request)
         {
             if (request == null)
                 return BadRequest();
@@ -54,7 +54,7 @@ namespace PMS.WebApi.Controllers
 
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> GetAllProperties()
+        public async Task<IActionResult> GetAllPropertiesAsync()
         {
             var properties = await _propertyService.GetPropertiesAsync(Guid.Parse(User.Identity!.Name!));
 
@@ -63,7 +63,7 @@ namespace PMS.WebApi.Controllers
 
         [Authorize]
         [HttpGet("{propertyId}")]
-        public async Task<IActionResult> GetProperty(Guid propertyId)
+        public async Task<IActionResult> GetPropertyAsync(Guid propertyId)
         {
             var property = await _propertyService.GetByIdAsync(propertyId);
 
@@ -75,7 +75,7 @@ namespace PMS.WebApi.Controllers
 
         [Authorize]
         [HttpGet("{propertyId}/Address")]
-        public async Task<IActionResult> GetPropertyAddress(Guid propertyId)
+        public async Task<IActionResult> GetPropertyAddressAsync(Guid propertyId)
         {
             var property = await _propertyService.GetByIdAsync(propertyId);
 
