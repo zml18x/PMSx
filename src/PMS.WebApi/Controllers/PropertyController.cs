@@ -86,5 +86,18 @@ namespace PMS.WebApi.Controllers
 
             return new JsonResult(address);
         }
+
+        [Authorize]
+        [HttpPost("{propertyId}/Rooms/Add")]
+        public async Task<IActionResult> AddRoomsAsync([FromBody] AddRooms request, Guid propertyId)
+        {
+            if (request == null)
+                return BadRequest();
+
+            await _propertyService.AddRoomsAsync(propertyId, request.Amount, request.Number, request.Name,
+                 request.Description, request.Type, request.SingleBedCount, request.DoubleBedCount);
+
+            return Created($"/Property/{propertyId}/Rooms", null);
+        }
     }
 }

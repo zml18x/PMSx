@@ -94,5 +94,16 @@ namespace PMS.Core.Entities
 
             MaxRoomsCount = maxRoomsCount;
         }
+
+        public void AddRoom(Room room)
+        {
+            if (room == null)
+                throw new ArgumentNullException(nameof(room), "The Room field cannot be empty");
+
+            if (RoomsCount == MaxRoomsCount)
+                throw new ArgumentException("You cannot add new rooms. The limit of the number of rooms has been reached.",nameof(room));
+
+            _rooms.Add(room);
+        }
     }
 }

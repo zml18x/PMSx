@@ -16,11 +16,12 @@ namespace PMS.Core.Entities
 
 
 
-        public Room(Guid id, Guid propertyId, string roomNumber, string name, string type, int singleBedCount, int doubleBedCount)
+        public Room(Guid id, Guid propertyId, string roomNumber, string name, string description, string type, int singleBedCount, int doubleBedCount)
         {
             SetId(id, propertyId);
             SetNumber(roomNumber);
             SetName(name);
+            SetDescription(description);
             SetType(type);
             SetBedsCount(singleBedCount, doubleBedCount);
             IsOccupied = false;
@@ -54,6 +55,14 @@ namespace PMS.Core.Entities
                 throw new ArgumentNullException(nameof(name), "Room Name cannot be null or whitespace");
 
             Name = name;
+        }
+
+        private void SetDescription(string description)
+        {
+            if (string.IsNullOrWhiteSpace(description))
+                throw new ArgumentNullException(nameof(description), "Room description cannot be null or whitespace");
+
+            Description = description;
         }
 
         private void SetType(string type)
