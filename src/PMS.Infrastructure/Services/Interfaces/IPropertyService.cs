@@ -9,5 +9,7 @@ namespace PMS.Infrastructure.Services.Interfaces
         public Task CreateAsync(Guid userId, Guid addressId, string propertyType, int stars, string name, string description, int maxRoomsCount);
         public Task AddRoomsAsync(Guid propertyId, int amount, string[] roomNumber, string[] name,
             string[] description, string[] type, int[] singleBedCount, int[] doubleBedCount);
+        public Task<IEnumerable<RoomDto>> GetAllRoomsAsync(Guid propertyId);
+        public Task<RoomDetailsDto> GetRoomAsync(Guid propertyId, Guid roomId);
     }
 }

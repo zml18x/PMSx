@@ -1,7 +1,6 @@
 ﻿using PMS.Core.Entities;
 using PMS.Core.Repository;
 using PMS.Infrastructure.Dto;
-using PMS.Infrastructure.Extensions;
 using PMS.Infrastructure.Services.Interfaces;
 
 namespace PMS.Infrastructure.Services
@@ -35,7 +34,7 @@ namespace PMS.Infrastructure.Services
 
         public async Task<PropertyDetailsDto> GetByIdAsync(Guid propertyId)
         {
-            var property = await _propertyRepository.GetOrFailAsync(propertyId);
+            var property = await _propertyRepository.GetWithRoomsByPropertyId(propertyId);
 
             return new PropertyDetailsDto(property.Id, property.PropertyType, property.Stars,
                 property.Name, property.Description, property.MaxRoomsCount, property.RoomsCount, property.AddressId);
@@ -78,6 +77,31 @@ namespace PMS.Infrastructure.Services
             }
 
             await _propertyRepository.AddRoomsAsync(newRooms);
+        }
+
+        public async Task<IEnumerable<RoomDto>> GetAllRoomsAsync(Guid propertyId)
+        {
+            var property = await _propertyRepository.GetWithRoomsByPropertyId(propertyId);
+
+            if (property == null)
+                throw new ArgumentNullException(nameof(property), $"Property with ID '{propertyId} does not exist'");
+
+            var roomsDto = new List<RoomDto>();
+
+            foreach(var room in property.Rooms)
+                roomsDto.Add(new RoomDto(room.Id, room.PropertyId, room.RoomNumber, room.Type, room.IsOccupied));
+
+            return roomsDto;
+        }
+
+        public async Task<RoomDetailsDto> GetRoomAsync(Guid propertyId, Guid roomId)
+        {
+            var room = await _propertyRepository.GetRoomAsync(propertyId, roomId);
+
+            if (room == null)
+                throw new ArgumentNullException(nameof(room), $"Room with PropertyId = '{propertyId}' and RoomId = '{roomId} does not exist'");
+
+            return new RoomDetailsDto(room.Id, room.PropertyId, room.RoomNumber, room.Type, room.IsOccupied, room.Name, room.Description, room.SingleBedCount, room.DoubleBedCount);
         }
     }
 }

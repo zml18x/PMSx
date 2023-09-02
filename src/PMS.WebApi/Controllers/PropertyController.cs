@@ -99,5 +99,29 @@ namespace PMS.WebApi.Controllers
 
             return Created($"/Property/{propertyId}/Rooms", null);
         }
+
+        [Authorize]
+        [HttpGet("{propertyId}/Rooms")]
+        public async Task<IActionResult> GetAllRoomsAsync(Guid propertyId)
+        {
+            var rooms = await _propertyService.GetAllRoomsAsync(propertyId);
+
+            if(rooms == null)
+                return NotFound();
+
+            return new JsonResult(rooms);
+        }
+
+        [Authorize]
+        [HttpGet("{propertyId}/Rooms/{roomId}")]
+        public async Task<IActionResult> GetRoomAsync(Guid propertyId, Guid roomId)
+        {
+            var room = await _propertyService.GetRoomAsync(propertyId,roomId);
+
+            if (room == null)
+                return NotFound();
+
+            return new JsonResult(room);
+        }
     }
 }

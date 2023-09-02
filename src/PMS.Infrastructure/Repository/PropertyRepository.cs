@@ -39,6 +39,7 @@ namespace PMS.Infrastructure.Repository
             return property;
         }
 
+
         public async Task<IEnumerable<Property>> GetAllAsync(Guid userId)
         {
             return await _context.Properties
@@ -91,5 +92,8 @@ namespace PMS.Infrastructure.Repository
                 throw new ArgumentException(ex.Message);
             }        
         }
+
+        public async Task<Room> GetRoomAsync(Guid propertyId, Guid roomId)
+            => await Task.FromResult(await _context.Rooms.FirstOrDefaultAsync(r => r.Id == roomId && r.PropertyId == propertyId));
     }
 }

@@ -3,7 +3,6 @@
     public class PropertyDetailsDto : PropertyDto
     {
         public Guid AddressId { get; set; }
-        public IEnumerable<RoomDto> Rooms { get; set; }
         public int MaxRoomsCount { get; set; }
         public int RoomsCount { get; set; }
 
