@@ -8,7 +8,7 @@ namespace PMS.Core.Entities
         [NotMapped]
         private ISet<Room> _rooms = new HashSet<Room>();
         [NotMapped]
-        private ISet<PropertyAdditionalServices> _additionalServices = new HashSet<PropertyAdditionalServices>();
+        private ISet<PropertyAdditionalService> _additionalServices = new HashSet<PropertyAdditionalService>();
         [Key]
         public Guid Id { get; protected set; }
         public Guid UserId { get; protected set; }
@@ -28,7 +28,7 @@ namespace PMS.Core.Entities
         [NotMapped]
         public IEnumerable<Room> OccupiedRooms =>_rooms.Except(AvailableRooms);
         [NotMapped]
-        public IEnumerable<PropertyAdditionalServices> AdditionalServices => _additionalServices;
+        public IEnumerable<PropertyAdditionalService> AdditionalServices => _additionalServices;
 
 
 

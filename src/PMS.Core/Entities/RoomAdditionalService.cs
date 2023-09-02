@@ -2,7 +2,7 @@
 
 namespace PMS.Core.Entities
 {
-    public class RoomAdditionalService : AdditionalServices
+    public class RoomAdditionalService : AdditionalService
     {
         public Guid RoomId { get; protected set; }
 

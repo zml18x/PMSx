@@ -2,14 +2,14 @@
 
 namespace PMS.Core.Entities
 {
-    public abstract class AdditionalServices : Entity
+    public abstract class AdditionalService : Entity
     {
         public string ServiceName { get; protected set; }
         public string ServiceDescription { get; protected set; }
 
 
 
-        public AdditionalServices(Guid id, string serviceName, string serviceDescription)
+        public AdditionalService(Guid id, string serviceName, string serviceDescription)
         {
             SetId(id);
             SetServiceName(serviceName);

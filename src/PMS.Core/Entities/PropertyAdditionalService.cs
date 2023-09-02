@@ -2,13 +2,13 @@
 
 namespace PMS.Core.Entities
 {
-    public class PropertyAdditionalServices : AdditionalServices
+    public class PropertyAdditionalService : AdditionalService
     {
         public Guid PropertyId { get; protected set; }
 
 
 
-        public PropertyAdditionalServices(Guid id, string serviceName, string serviceDescription, Guid propertyId) : base(id,serviceName, serviceDescription)
+        public PropertyAdditionalService(Guid id, string serviceName, string serviceDescription, Guid propertyId) : base(id,serviceName, serviceDescription)
         {
             SetPropertyId(propertyId);
         }
