@@ -34,6 +34,9 @@ The PMS API consists of two main controllers:
    - `GetAllPropertiesAsync`: Get a list of all properties owned by a user.
    - `GetPropertyAsync`: Retrieve information about a specific property.
    - `GetPropertyAddressAsync`: Retrieve the address of a specific property.
+   - `AddRoomsAsync` : Adds the indicated number of rooms to the property.
+   - `GetAllRoomsAsync` : Returns a list of all rooms belonging to a given property.
+   - `GetRoomAsync` : Returns the room with the given id with all data.
 
 ## Endpoints
 
