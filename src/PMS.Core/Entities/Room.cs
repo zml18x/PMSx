@@ -1,9 +1,12 @@
 ﻿using PMS.Core.Exceptions;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PMS.Core.Entities
 {
     public class Room : Entity
     {
+        [NotMapped]
+        private ISet<RoomAdditionalService> _additionalServices = new HashSet<RoomAdditionalService>();
         public Guid PropertyId { get; protected set; }
         public string RoomNumber { get; protected set; }
         public string Name { get; protected set; }
@@ -13,6 +16,8 @@ namespace PMS.Core.Entities
         public int DoubleBedCount { get; protected set; }
         public int MaxAccommodation => SingleBedCount + (DoubleBedCount * 2);
         public bool IsOccupied { get; protected set; }
+        [NotMapped]
+        public IEnumerable<RoomAdditionalService> additionalServices => _additionalServices;
 
 
 
