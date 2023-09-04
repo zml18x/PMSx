@@ -37,6 +37,7 @@ The PMS API consists of two main controllers:
    - `AddRoomsAsync` : Adds the indicated number of rooms to the property.
    - `GetAllRoomsAsync` : Returns a list of all rooms belonging to a given property.
    - `GetRoomAsync` : Returns the room with the given id with all data.
+   - `AddAdditionalServicesAsync` : Adding additional services (e.g. restaurant) to the hotel or rooms.
 
 ## Endpoints
 
