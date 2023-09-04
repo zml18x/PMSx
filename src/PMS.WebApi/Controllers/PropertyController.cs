@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PMS.Infrastructure.Requests.Property;
 using PMS.Infrastructure.Services.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace PMS.WebApi.Controllers
 {
@@ -24,11 +25,8 @@ namespace PMS.WebApi.Controllers
 
         [Authorize]
         [HttpPost("Create")]
-        public async Task<IActionResult> AddNewPropertyAsync([FromBody] CreateProperty request)
+        public async Task<IActionResult> AddNewPropertyAsync([FromBody, Required] CreateProperty request)
         {
-            if (request == null)
-                return BadRequest();
-
             try
             {
                 var userId = Guid.Parse(User.Identity!.Name!);
@@ -89,11 +87,8 @@ namespace PMS.WebApi.Controllers
 
         [Authorize]
         [HttpPost("{propertyId}/Rooms/Add")]
-        public async Task<IActionResult> AddRoomsAsync([FromBody] AddRooms request, Guid propertyId)
+        public async Task<IActionResult> AddRoomsAsync([FromBody, Required] AddRooms request, Guid propertyId)
         {
-            if (request == null)
-                return BadRequest();
-
             await _propertyService.AddRoomsAsync(propertyId, request.Amount, request.Number, request.Name,
                  request.Description, request.Type, request.SingleBedCount, request.DoubleBedCount);
 
@@ -122,6 +117,24 @@ namespace PMS.WebApi.Controllers
                 return NotFound();
 
             return new JsonResult(room);
+        }
+
+        [Authorize]
+        [HttpPost("{propertyId}/AdditionalServices/Add")]
+        public async Task<IActionResult> AddAdditionalServicesAsync([FromBody,Required] AddAdditionalServices request, Guid propertyId)
+        {
+            await _propertyService.AddAdditionalServicesAsync(propertyId, request.ServiceName, request.ServiceDescription);
+
+            return Created($"/Property/{propertyId}/AdditionalServices", null);
+        }
+
+        [Authorize]
+        [HttpPost("{propertyId}/Rooms/{roomId}/AdditionalServices/Add")]
+        public async Task<IActionResult> AddAdditionalServicesAsync([FromBody, Required] AddAdditionalServices request, Guid propertyId, Guid roomId)
+        {
+            await _propertyService.AddAdditionalServicesAsync(propertyId, roomId, request.ServiceName, request.ServiceDescription);
+
+            return Created($"/Property/{propertyId}/Rooms/{roomId}/AdditionalServices", null);
         }
     }
 }

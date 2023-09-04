@@ -17,6 +17,9 @@ namespace PMS.Infrastructure.Data.Context
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Property> Properties { get; set; }
         public DbSet<Room> Rooms { get; set; }
+        public DbSet<PropertyAdditionalService> PropertyAdditionalServices { get; set; }
+        public DbSet<RoomAdditionalService> RoomAdditionalServices { get; set; }
+
 
 
 

@@ -11,5 +11,7 @@ namespace PMS.Infrastructure.Services.Interfaces
             string[] description, string[] type, int[] singleBedCount, int[] doubleBedCount);
         public Task<IEnumerable<RoomDto>> GetAllRoomsAsync(Guid propertyId);
         public Task<RoomDetailsDto> GetRoomAsync(Guid propertyId, Guid roomId);
+        public Task AddAdditionalServicesAsync(Guid propertyId, string[] serviceName, string[] serviceDescription);
+        public Task AddAdditionalServicesAsync(Guid propertyId, Guid roomId, string[] serviceName, string[] serviceDescription);
     }
 }

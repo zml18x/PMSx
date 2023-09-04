@@ -76,24 +76,82 @@ namespace PMS.Infrastructure.Repository
 
         public async Task AddRoomsAsync(List<Room> rooms)
         {
-            using var transaction = await _context.Database.BeginTransactionAsync();
+            if (rooms == null)
+                throw new ArgumentNullException(nameof(rooms), "Romms cannot be null");
 
-            try
+            if(rooms.Count > 0)
             {
-                foreach (var room in rooms)
-                    await _context.Rooms.AddAsync(room);                 
+                using var transaction = await _context.Database.BeginTransactionAsync();
 
-                await _context.SaveChangesAsync();
-                await transaction.CommitAsync();
-            }
-            catch (Exception ex)
-            {
-                await transaction.RollbackAsync();
-                throw new ArgumentException(ex.Message);
-            }        
+                try
+                {
+                    foreach (var room in rooms)
+                        await _context.Rooms.AddAsync(room);
+
+                    await _context.SaveChangesAsync();
+                    await transaction.CommitAsync();
+                }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    throw new ArgumentException(ex.Message);
+                }
+            }    
         }
 
         public async Task<Room> GetRoomAsync(Guid propertyId, Guid roomId)
             => await Task.FromResult(await _context.Rooms.FirstOrDefaultAsync(r => r.Id == roomId && r.PropertyId == propertyId));
+
+        public async Task AddAdditionalServicesAsync(List<PropertyAdditionalService> additionalServices)
+        {
+            if (additionalServices == null)
+                throw new ArgumentNullException(nameof(additionalServices), "AdditionalServices cannot be null");
+
+
+            if(additionalServices.Count > 0)
+            {
+                using var transaction = await _context.Database.BeginTransactionAsync();
+
+                try
+                {
+                    foreach (var additionalService in additionalServices)
+                        await _context.PropertyAdditionalServices.AddAsync(additionalService);
+
+                    await _context.SaveChangesAsync();
+                    await transaction.CommitAsync();
+                }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    throw new ArgumentException(ex.Message);
+                }
+            } 
+        }
+
+        public async Task AddAdditionalServicesAsync(List<RoomAdditionalService> additionalServices)
+        {
+            if (additionalServices == null)
+                throw new ArgumentNullException(nameof(additionalServices), "AdditionalServices cannot be null");
+
+
+            if (additionalServices.Count > 0)
+            {
+                using var transaction = await _context.Database.BeginTransactionAsync();
+
+                try
+                {
+                    foreach (var additionalService in additionalServices)
+                        await _context.RoomAdditionalServices.AddAsync(additionalService);
+
+                    await _context.SaveChangesAsync();
+                    await transaction.CommitAsync();
+                }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    throw new ArgumentException(ex.Message);
+                }
+            }
+        }
     }
 }

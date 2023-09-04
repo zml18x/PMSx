@@ -110,5 +110,13 @@ namespace PMS.Core.Entities
 
             _rooms.Add(room);
         }
+
+        public void AddAdditionalService(PropertyAdditionalService additionalService)
+        {
+            if (additionalService == null)
+                throw new ArgumentNullException(nameof(additionalService), "The additionalService field cannot be null");
+
+            _additionalServices.Add(additionalService);
+        }
     }
 }

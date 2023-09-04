@@ -1,6 +1,7 @@
 ﻿using PMS.Core.Entities;
 using PMS.Core.Repository;
 using PMS.Infrastructure.Dto;
+using PMS.Infrastructure.Extensions;
 using PMS.Infrastructure.Services.Interfaces;
 
 namespace PMS.Infrastructure.Services
@@ -102,6 +103,39 @@ namespace PMS.Infrastructure.Services
                 throw new ArgumentNullException(nameof(room), $"Room with PropertyId = '{propertyId}' and RoomId = '{roomId} does not exist'");
 
             return new RoomDetailsDto(room.Id, room.PropertyId, room.RoomNumber, room.Type, room.IsOccupied, room.Name, room.Description, room.SingleBedCount, room.DoubleBedCount);
+        }
+
+        public async Task AddAdditionalServicesAsync(Guid propertyId, string[] serviceName, string[] serviceDescription)
+        {
+            var property = await _propertyRepository.GetOrFailAsync(propertyId);
+
+            var newAdditionalServices = new List<PropertyAdditionalService>();
+
+            for(var i = 0; i < serviceName.Length; i++)
+            {
+                var additionalService = new PropertyAdditionalService(Guid.NewGuid(), serviceName[i], serviceDescription[i], propertyId);
+                newAdditionalServices.Add(additionalService);
+            }
+
+            await _propertyRepository.AddAdditionalServicesAsync(newAdditionalServices);
+        }
+
+        public async Task AddAdditionalServicesAsync(Guid propertyId, Guid roomId, string[] serviceName, string[] serviceDescription)
+        {
+            var room = await _propertyRepository.GetRoomAsync(propertyId,roomId);
+
+            if (room == null)
+                throw new ArgumentNullException(nameof(room), $"Room with PropertyId = '{propertyId}' and RoomId = '{roomId} does not exist'");
+
+            var newAdditionalServices = new List<RoomAdditionalService>();
+
+            for (var i = 0; i < serviceName.Length; i++)
+            {
+                var additionalService = new RoomAdditionalService(Guid.NewGuid(), serviceName[i], serviceDescription[i], roomId);
+                newAdditionalServices.Add(additionalService);
+            }
+
+            await _propertyRepository.AddAdditionalServicesAsync(newAdditionalServices);
         }
     }
 }

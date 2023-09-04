@@ -39,7 +39,7 @@ namespace PMS.Core.Entities
             if (string.IsNullOrWhiteSpace(serviceDescription))
                 throw new ArgumentNullException(nameof(serviceDescription), "SerivceName cannot be null or whitespace");
 
-            ServiceName = serviceDescription;
+            ServiceDescription = serviceDescription;
         }
     }
 }

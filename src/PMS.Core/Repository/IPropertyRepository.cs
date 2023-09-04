@@ -13,5 +13,7 @@ namespace PMS.Core.Repository
         public Task DeleteAsync(Property property);
         public Task AddRoomsAsync(List<Room> rooms);
         public Task<Room> GetRoomAsync(Guid propertyId, Guid roomId);
+        public Task AddAdditionalServicesAsync(List<PropertyAdditionalService> additionalServices);
+        public Task AddAdditionalServicesAsync(List<RoomAdditionalService> additionalServices);
     }
 }
