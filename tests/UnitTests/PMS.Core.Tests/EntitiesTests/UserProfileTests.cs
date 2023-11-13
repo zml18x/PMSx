@@ -1,22 +1,23 @@
 ﻿using PMS.Core.Entities;
-using PMS.Core.Exceptions;
+using Xunit.Sdk;
 
 namespace PMS.Core.Tests.EntitiesTests
 {
     public class UserProfileTests
     {
         [Fact]
-        public void UserProfileConstructorSetsPropertiesCorrectly()
+        public void UserProfile_ConstructorSetsPropertiesCorrectly()
         {
+            // Arrange
             var id = Guid.NewGuid();
-            var firstName = "Test";
-            var lastName = "Example";
+            var firstName = "TestName";
+            var lastName = "TestLastName";
             var phoneNumber = "123456789";
 
-
+            // Act
             var userProfile = new UserProfile(id, firstName, lastName, phoneNumber);
 
-
+            // Assert
             Assert.Equal(id, userProfile.Id);
             Assert.Equal(firstName, userProfile.FirstName);
             Assert.Equal(lastName, userProfile.LastName);
@@ -28,174 +29,264 @@ namespace PMS.Core.Tests.EntitiesTests
         }
 
         [Fact]
-        public void UserProfileSetIdThrowsExceptionWhenIdIsInvalid()
+        public void UserProfile_SetId_ThrowsArgumentExceptionWhenUserIdIsInvalid()
         {
+            // Arrange
             var id = Guid.NewGuid();
             var firstName = "Test";
             var lastName = "Example";
             var phoneNumber = "123456789";
 
+            // Act
+            var invalidUserProfileId = Guid.Empty;
 
-            id = Guid.Empty;
-            Assert.Throws<EmptyIdException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
+            // Assert
+            Assert.Throws<ArgumentException>(() => new UserProfile(invalidUserProfileId, firstName, lastName, phoneNumber));
         }
 
         [Fact]
-        public void UserProfileSetNamesThrowsExceptionWhenFirstNameOrLastNameIsInvalid()
+        public void UserProfile_SetNames_ThrowsExceptionWhenFirstNameIsInvalid()
         {
+            // Arrange
             var id = Guid.NewGuid();
-            var firstName = "Test";
             var lastName = "Example";
             var phoneNumber = "123456789";
 
+            // Act
+            var invalidToLongFirstName = new string('a', 101);
+            var invalidFirstNamesNullOrEmptyOrWhiteSpace = new string[] { null!, string.Empty, " " };
+            var invalidFirstNames = new string[] { "T", " TestName", "9TestName", ".TestName", ",TestName", "#TestName", "Te$stName", "Test*Name", "Test(Name)", "T!ESTName", "T>ESTName", "Test:Name" };
 
-            firstName = null;
-            Assert.Throws<ArgumentNullException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
+            // Assert
+            Assert.Throws<ArgumentException>(() => new UserProfile(id, invalidToLongFirstName, lastName, phoneNumber));
 
-            firstName = string.Empty;
-            Assert.Throws<ArgumentNullException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
+            foreach (var invalidFirstName in invalidFirstNamesNullOrEmptyOrWhiteSpace)
+                Assert.Throws<ArgumentNullException>(() => new UserProfile(id, invalidFirstName, lastName, phoneNumber));
 
-            firstName = "Test";
-            lastName = null;
-            Assert.Throws<ArgumentNullException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
-
-            lastName = string.Empty;
-            Assert.Throws<ArgumentNullException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
-
-            firstName = "T";
-            lastName = "Example";
-            Assert.Throws<ArgumentException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
-
-            firstName = "Test";
-            lastName = "E";
-            Assert.Throws<ArgumentException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
-
-
-            firstName = new string('a', 101);
-            lastName = "Example";
-            Assert.Throws<ArgumentException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
-
-            firstName = "Test";
-            lastName = new string('a', 101);
-            Assert.Throws<ArgumentException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
-
-            firstName = " Test";
-            lastName = "Example";
-            Assert.Throws<ArgumentException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
-
-            firstName = "Test";
-            lastName = " Example";
-            Assert.Throws<ArgumentException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
-
-            firstName = "9Test";
-            lastName = "Example";
-            Assert.Throws<ArgumentException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
-
-            firstName = "Test";
-            lastName = "1Example";
-            Assert.Throws<ArgumentException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
-
-            firstName = ".Test";
-            lastName = "Example";
-            Assert.Throws<ArgumentException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
-
-            firstName = "Test";
-            lastName = ",Example";
-            Assert.Throws<ArgumentException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
-
-            firstName = "#Test";
-            lastName = "Example";
-            Assert.Throws<ArgumentException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
-
-            firstName = "Test";
-            lastName = "Exa$mple";
-            Assert.Throws<ArgumentException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
+            foreach (var invalidFirstName in invalidFirstNames)
+                Assert.Throws<ArgumentException>(() => new UserProfile(id, invalidFirstName, lastName, phoneNumber));
         }
 
         [Fact]
-        public void UserProfileSetPhoneNumberThrowsExceptionWhenPhoneNumberIsInvalid()
+        public void UserProfile_SetNames_ThrowsExceptionWhenLastNameIsInvalid()
         {
+            // Arrange
+            var id = Guid.NewGuid();
+            var firstName = "Test";
+            var phoneNumber = "123456789";
+
+            // Act
+            var invalidToLongLasttName = new string('a', 101);
+            var invalidLastNamesNullOrEmptyOrWhiteSpace = new string[] { null!, string.Empty, " " };
+            var invalidLastNames = new string[] { "T", " TestName", "9TestName", ".TestName", ",TestName", "#TestName", "Te$stName", "Test*Name", "Test(Name)", "T!ESTName", "T>ESTName", "Test:Name" };
+
+            // Assert
+            Assert.Throws<ArgumentException>(() => new UserProfile(id, firstName, invalidToLongLasttName, phoneNumber));
+
+            foreach (var invalidLastName in invalidLastNamesNullOrEmptyOrWhiteSpace)
+                Assert.Throws<ArgumentNullException>(() => new UserProfile(id, firstName, invalidLastName, phoneNumber));
+
+            foreach (var invalidLastName in invalidLastNames)
+                Assert.Throws<ArgumentException>(() => new UserProfile(id, firstName, invalidLastName, phoneNumber));
+        }
+
+        [Fact]
+        public void UserProfile_SetPhoneNumber_ThrowsExceptionWhenPhoneNumberIsInvalid()
+        {
+            // Arrange
             var id = Guid.NewGuid();
             var firstName = "Test";
             var lastName = "Example";
-            var phoneNumber = "123456789";
 
 
-            phoneNumber = null;
-            Assert.Throws<ArgumentNullException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
+            // Act
+            var invalidPhoneNumbersNullOrEmptyOrWhiteSpace = new string[] { null!, string.Empty, " " };
+            var invalidPhoneNumbersWrongLength = new string[] { new string('1', 8), new string('1', 10) };
+            var invalidPhoneNumbers = new string[] { "12345678a", "P12345678", "1234x1234", " 12345678", ".12345678", "$12345678", "123#45678", "123?45678", "123(45678", "1234:1234", ">12345678" };
 
-            phoneNumber = string.Empty;
-            Assert.Throws<ArgumentNullException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
 
-            phoneNumber = new string('1', 8);
-            Assert.Throws<ArgumentException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
+            // Assert
+            foreach (var invalidPhoneNumber in invalidPhoneNumbersNullOrEmptyOrWhiteSpace)
+                Assert.Throws<ArgumentNullException>(() => new UserProfile(id, firstName, lastName, invalidPhoneNumber));
 
-            phoneNumber = new string('1', 10);
-            Assert.Throws<ArgumentException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
+            foreach (var invalidPhoneNumber in invalidPhoneNumbersWrongLength)
+                Assert.Throws<ArgumentException>(() => new UserProfile(id, firstName, lastName, invalidPhoneNumber));
 
-            phoneNumber = "12345678a";
-            Assert.Throws<ArgumentException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
-
-            phoneNumber = "P12345678";
-            Assert.Throws<ArgumentException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
-
-            phoneNumber = " 12345678";
-            Assert.Throws<ArgumentException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
-
-            phoneNumber = ".12345678";
-            Assert.Throws<ArgumentException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
-
-            phoneNumber = "$12345678";
-            Assert.Throws<ArgumentException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
-
-            phoneNumber = "123#45678";
-            Assert.Throws<ArgumentException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
-
-            phoneNumber = "123?45678";
-            Assert.Throws<ArgumentException>(() => new UserProfile(id, firstName, lastName, phoneNumber));
+            foreach (var invalidPhoneNumber in invalidPhoneNumbers)
+                Assert.Throws<ArgumentException>(() => new UserProfile(id, firstName, lastName, invalidPhoneNumber));
         }
 
         [Fact]
-        public void UpdateUserProfileShouldChangeValuesInFields()
+        public void UpdateUserProfile_DoesNotUpdateWhenAllFieldsAreNulll()
         {
+            // Arrange
             var id = Guid.NewGuid();
             var firstName = "Test";
-            var lastName = "TestTest";
-            var phoneNumber = "123456789";
+            var lastName = "Example";
+            var phoneNumber = "000000000";
 
-            var userProfile = new UserProfile(id,firstName, lastName, phoneNumber);
-
-            var newFirstName = "NewTest";
-            var newLastName = "NewTestTest";
-            var newPhoneNumber = "987654321";
+            var userProfile = new UserProfile(id, firstName, lastName, phoneNumber);
 
 
+            // Act
             userProfile.UpdateUserProfile(null, null, null);
 
+
+            // Assert
+            Assert.Equal(phoneNumber, userProfile.PhoneNumber);
             Assert.Equal(firstName, userProfile.FirstName);
             Assert.Equal(lastName, userProfile.LastName);
-            Assert.Equal(phoneNumber, userProfile.PhoneNumber);
+        }
+
+        [Fact]
+        public void UpdateUserProfile_ShouldUpdateAllFieldsWhenAllFieldsAreNotNull()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var firstName = "Test";
+            var lastName = "Example";
+            var phoneNumber = "000000000";
+
+            var userProfile = new UserProfile(id, firstName, lastName, phoneNumber);
+
+            var newFirstName = "NewName";
+            var newLastName = "NewLastName";
+            var newPhoneNumber = "123456789";
 
 
-            userProfile.UpdateUserProfile(newFirstName, null, null);
-
-            Assert.Equal(newFirstName, userProfile.FirstName);
-            Assert.Equal(lastName, userProfile.LastName);
-            Assert.Equal(phoneNumber, userProfile.PhoneNumber);
-
-
-            userProfile.UpdateUserProfile(newFirstName, newLastName, null);
-
-            Assert.Equal(newFirstName, userProfile.FirstName);
-            Assert.Equal(newLastName, userProfile.LastName);
-            Assert.Equal(phoneNumber, userProfile.PhoneNumber);
-
-
+            // Act
             userProfile.UpdateUserProfile(newFirstName, newLastName, newPhoneNumber);
 
+
+            // Assert
+            Assert.Equal(newPhoneNumber, userProfile.PhoneNumber);
             Assert.Equal(newFirstName, userProfile.FirstName);
             Assert.Equal(newLastName, userProfile.LastName);
+        }
+
+        [Fact]
+        public void UpdateUserProfile_UpdatesPhoneNumberWhenPhoneNumberIsNotNull()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var firstName = "Test";
+            var lastName = "Example";
+            var phoneNumber = "000000000";
+            var newPhoneNumber = "123456789";
+
+            var userProfile = new UserProfile(id, firstName, lastName, phoneNumber);
+
+
+            // Act
+            userProfile.UpdateUserProfile(null, null, newPhoneNumber);
+
+
+            // Assert
             Assert.Equal(newPhoneNumber, userProfile.PhoneNumber);
+        }
+
+
+
+        [Fact]
+        public void UpdateUserProfile_DoesNotUpdatePhoneNumberWhenPhoneNumberIsNull()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var firstName = "Test";
+            var lastName = "Example";
+            var phoneNumber = "000000000";
+
+            var userProfile = new UserProfile(id, firstName, lastName, phoneNumber);
+
+
+            // Act
+            userProfile.UpdateUserProfile("NewName", "NewLastName", null);
+
+
+            // Assert
+            Assert.Equal(phoneNumber, userProfile.PhoneNumber);
+        }
+
+        [Fact]
+        public void UpdateUserProfile_UpdatesFirstNamerWhenFirstNameIsNotNull()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var firstName = "Test";
+            var lastName = "Example";
+            var phoneNumber = "000000000";
+            var newFirstName = "NewName";
+
+            var userProfile = new UserProfile(id, firstName, lastName, phoneNumber);
+
+
+            // Act
+            userProfile.UpdateUserProfile(newFirstName, null, null);
+
+
+            // Assert
+            Assert.Equal(newFirstName, userProfile.FirstName);
+        }
+
+        [Fact]
+        public void UpdateUserProfile_DoesNotUpdateFirstNameWhenFirstNameIsNull()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var firstName = "Test";
+            var lastName = "Example";
+            var phoneNumber = "000000000";
+
+            var userProfile = new UserProfile(id, firstName, lastName, phoneNumber);
+
+
+            // Act
+            userProfile.UpdateUserProfile(null, "NewLastName", "123456789");
+
+
+            // Assert
+            Assert.Equal(firstName, userProfile.FirstName);
+        }
+
+        [Fact]
+        public void UpdateUserProfile_UpdatesLastNamerWhenLastNameIsNotNull()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var firstName = "Test";
+            var lastName = "Example";
+            var phoneNumber = "000000000";
+            var newLastName = "NewName";
+
+            var userProfile = new UserProfile(id, firstName, lastName, phoneNumber);
+
+
+            // Act
+            userProfile.UpdateUserProfile(null, newLastName, null);
+
+
+            // Assert
+            Assert.Equal(newLastName, userProfile.LastName);
+        }
+
+        [Fact]
+        public void UpdateUserProfile_DoesNotUpdateLastNameWhenLastNameIsNull()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var firstName = "Test";
+            var lastName = "Example";
+            var phoneNumber = "000000000";
+
+            var userProfile = new UserProfile(id, firstName, lastName, phoneNumber);
+
+
+            // Act
+            userProfile.UpdateUserProfile("NewName", null, "123456789");
+
+
+            // Assert
+            Assert.Equal(lastName, userProfile.LastName);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace PMS.Core.Entities
         private void SetId(Guid id)
         {
             if (id == Guid.Empty)
-                throw new EmptyIdException("Id cannot be empty");
+                throw new ArgumentException("Id cannot be empty");
 
             Id = id;
         }

@@ -40,10 +40,10 @@ namespace PMS.Core.Entities
         private void SetId(Guid userId, Guid userProfileId)
         {
             if (userId == Guid.Empty)
-                throw new EmptyIdException("UserId cannot be empty");
+                throw new ArgumentException("UserId cannot be empty");
 
             if (userProfileId == Guid.Empty)
-                throw new EmptyIdException("UserProfileId cannot be empty");
+                throw new ArgumentException("UserProfileId cannot be empty");
 
             Id = userId;
             UserProfileId = userProfileId;
